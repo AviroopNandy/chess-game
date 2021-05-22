@@ -1,37 +1,34 @@
-import React, { useRef } from "react";
+import React from "react";
+import modalCloseIcon from "../../assets/images/modal-close.png";
 
 import "./Modal.css";
 
 interface ModalProps {
     title: string;
     isOpen: boolean;
-    onClose: () => void
+    onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children }) => {
-    const outsideRef = useRef(null);
-    const handleCloseOnOverlay = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if(e.target === outsideRef.current) {
-            onClose();
-        }
-    }
-    return isOpen ? (
+export const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children }) => {
+    return( 
         <div className="modal">
-            <div
-            ref={ outsideRef }
-            className="modalOverlay"
-            onClick={ handleCloseOnOverlay } />
-            <div className="modalBox">
-                <button className="modalClose" onClick={ onClose }>X</button>
-                <div className="modalTitle">
-                    { title }
-                </div>
-                <div className="modalContent">
-                    { children }
-                </div>
-            </div>
+            { isOpen ?
+                    <div>
+                        <div className="modal-overlay" />
+                        <div className="modal-box">
+                            <div className="modal-close-btn">
+                                <img src={ modalCloseIcon } alt="X" />
+                            </div>
+                            <div className="modal-title">
+                                { title }
+                            </div>
+                            <div className="modal-body">
+                                { children }
+                            </div>
+                        </div>
+                    </div>
+                : null
+            }
         </div>
-    ) : null;
+    );
 }
-
-export default Modal;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../Modal/Modal";
+import { Modal } from "../Modal/Modal";
 import Chessboard from "chessboardjsx";
 import { ChessInstance, ShortMove } from "chess.js";
 // import Popup from "reactjs-popup";
@@ -15,12 +15,14 @@ const Board: React.FC = () => {
 
     const [fen, setFen] = useState(chess.fen());
     const [numberOfMoves, setNumberofMoves] = useState(0);
-    const [showModal, setShowModal] = useState(false);
-    var winnerText = "";
+    const [isModalOpen, setModalState] = useState(false);
 
     const toggleModal = () => {
-        setShowModal(!showModal);
+        setModalState(!isModalOpen);
+        console.log(isModalOpen);
     }
+
+    var winnerText = "";
 
     const handleMove = (move: ShortMove) => {
         if(chess.move(move)) {
@@ -32,6 +34,7 @@ const Board: React.FC = () => {
                     setFen(chess.fen());
                 } else {
                     winnerText = "Game Over!";
+                    alert(winnerText);
                     // console.log("Game Over!");
                 }
             }, 300);
@@ -53,6 +56,14 @@ const Board: React.FC = () => {
                 })}
             />
             <h3 className="movesCount">Number of Moves by User (White): { numberOfMoves }</h3>
+            {/* <button onClick={ toggleModal }>Click</button> */}
+            {/* <Modal
+                title={ winnerText }
+                isOpen={ isModalOpen }
+                onClose={ toggleModal }
+            >
+                Well played!
+            </Modal> */}
         </div>
     );
 }
