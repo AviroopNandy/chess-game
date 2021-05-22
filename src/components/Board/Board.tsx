@@ -33,8 +33,7 @@ const Board: React.FC = () => {
                     chess.move(computerMove);
                     setFen(chess.fen());
                 } else {
-                    winnerText = "Game Over!";
-                    alert(winnerText);
+                    alert("Game over in " + numberOfMoves + " moves!");
                     // console.log("Game Over!");
                 }
             }, 300);
